@@ -1,16 +1,154 @@
-# React + Vite
+# CarBreezy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CarBreezy is a car marketplace web app built with React and Vite. It lets users browse a catalog of vehicles, filter and search inventory, view car details, review offers, and submit a contact form for buyer inquiries.
 
-Currently, two official plugins are available:
+This project is primarily a front-end application, with a small Express backend used only to save contact submissions locally.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+The app presents a landing-page style shopping experience for car buyers. Users can:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- browse a list of available cars
+- filter by vehicle type and condition
+- search by car brand or title
+- open a modal with more details about a selected vehicle
+- view brand/promotional sections and company information
+- send a contact request from a form
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19
+- Vite
+- JavaScript
+- CSS modules / custom CSS files
+- Express.js for the contact API
+- Axios for HTTP requests
+- Framer Motion for UI animations
+- React Router DOM
+
+## Project Structure
+
+```text
+Carbreezy/
+├── public/                  # Static car images and brand assets
+├── src/
+│   ├── components/          # Navbar, Footer, car list UI
+│   ├── data/
+│   │   └── carData.js       # Main car catalog data
+│   ├── pages/
+│   │   ├── About.jsx
+│   │   ├── BrandPage.jsx
+│   │   ├── CarCard.jsx
+│   │   ├── CarModal.jsx
+│   │   ├── ContactUs.jsx
+│   │   ├── LandingPage.jsx
+│   │   ├── NewCars.jsx
+│   │   └── Offers.jsx
+│   ├── App.jsx              # Root app component
+│   ├── main.jsx             # React entry point
+│   ├── server.js            # Express contact form server
+│   ├── contact.json         # Saved contact form entries
+│   ├── App.css
+│   ├── index.css
+│   └── style.css
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+├── vite.config.js
+└── public/
+```
+
+## Main Features
+
+### 1. Car catalog and filter system
+The main marketplace page uses `src/data/carData.js` to populate the inventory. Users can filter by:
+
+- car type
+- condition
+- keyword search
+
+### 2. Detailed vehicle preview
+Selecting a vehicle opens a detail modal showing vehicle information and specifications.
+
+### 3. Brand and offer sections
+The homepage includes:
+
+- brand showcase
+- offers/benefits section
+- company about page
+- contact form
+
+### 4. Contact form submission
+The form in `ContactUs.jsx` sends data to the Express API at `http://localhost:5000/contact`.
+
+## How It Works
+
+- The app loads the car catalog from `src/data/carData.js`.
+- The homepage renders the hero, search/filter panel, and car cards.
+- User selections update state in `LandingPage.jsx`.
+- The contact form posts submission data to the local Express server.
+- The server saves the JSON payload into `contact.json`.
+
+## Local Setup
+
+From the project root (`Carbreezy`):
+
+```bash
+npm install
+```
+
+### Start the backend contact server
+Because the server reads and writes `contact.json` relative to its working directory, start it from the `src` folder:
+
+```bash
+cd src
+node server.js
+```
+
+This starts the API at:
+
+```text
+http://localhost:5000/contact
+```
+
+### Start the frontend app
+Open a second terminal in the project root:
+
+```bash
+cd Carbreezy
+npm run dev
+```
+
+Then open the local Vite URL shown in the terminal.
+
+## Available Scripts
+
+In `package.json`:
+
+```bash
+npm run dev      # start the frontend app
+npm run build    # create production build
+npm run preview  # preview production build
+npm run lint     # run ESLint checks
+```
+
+## Notes
+
+- The app is mostly static and uses local data for listings.
+- The backend is lightweight and intended for demo/local use only.
+- The contact endpoint is not production-ready for deployment without environment configuration and security checks.
+
+## Recommended Next Improvements
+
+- connect the catalog to a real database or API
+- add product editing and admin functionality
+- add authentication for seller features
+- improve validation and error handling in the contact form
+- deploy the frontend and backend separately for production use
+
+## Summary
+
+CarBreezy is a simple but complete vehicle marketplace UI built with React. It is designed to feel like a modern car sales landing page and is suitable for learning React UI patterns, component structure, state-driven filtering, and basic API integration.
